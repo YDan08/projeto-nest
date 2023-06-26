@@ -7,7 +7,7 @@ import {
   ConflictException,
   NotFoundException,
 } from '@nestjs/common';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
@@ -32,6 +32,9 @@ export class ErrorsInterceptor implements NestInterceptor {
 
           case 'P2025':
             throw new NotFoundException('Registro não encontrado');
+
+          case 'P2003':
+            throw new NotFoundException('Registro externo não encontrado');
 
           default:
             throw new BadGatewayException();
