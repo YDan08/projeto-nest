@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UnityRepository } from './repository/unity.repository';
 import { CreateUnityDto } from './dto/create-unity.dto';
+import { UpdateUnityDto } from './dto/update-unity.dto';
 
 @Injectable()
 export class UnityService {
@@ -37,5 +38,17 @@ export class UnityService {
 
   async create(createUnityDTO: CreateUnityDto) {
     return await this.repository.create(createUnityDTO);
+  }
+
+  async update(id: bigint, updateUnityDto: UpdateUnityDto) {
+    return await this.repository.update(id, updateUnityDto);
+  }
+
+  async remove(id: bigint) {
+    return this.repository.remove(id);
+  }
+
+  async findById(id: bigint) {
+    return this.repository.findById(id);
   }
 }

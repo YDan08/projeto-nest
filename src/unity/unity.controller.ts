@@ -1,6 +1,16 @@
-import { Controller, Get, Request, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Request,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { UnityService } from './unity.service';
 import { CreateUnityDto } from './dto/create-unity.dto';
+import { UpdateUnityDto } from './dto/update-unity.dto';
 
 @Controller('unity')
 export class UnityController {
@@ -17,8 +27,26 @@ export class UnityController {
     );
   }
 
+  @Get(':id')
+  async findById(@Param('id') id: string) {
+    return await this.unityService.findById(BigInt(id));
+  }
+
   @Post()
   async create(@Body() createUnityDTO: CreateUnityDto) {
     return await this.unityService.create(createUnityDTO);
+  }
+
+  @Put(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() updateUnityDto: UpdateUnityDto,
+  ) {
+    return await this.unityService.update(BigInt(id), updateUnityDto);
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    return await this.unityService.remove(BigInt(id));
   }
 }
